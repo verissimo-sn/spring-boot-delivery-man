@@ -24,11 +24,15 @@ public class EstablishmentController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createEstablishment(@RequestBody @Valid EstablishmentDto establishmentDto) {
-        var establishment = new Establishment();
-        BeanUtils.copyProperties(establishmentDto, establishment);
-        var response = this.establishmentService.save(establishment);
-        return  ResponseEntity.status(HttpStatus.CREATED).body(response);
+    public ResponseEntity<Object> createEstablishment(@RequestBody @Valid EstablishmentDto establishmentDto) throws Exception {
+        try {
+            var establishment = new Establishment();
+            BeanUtils.copyProperties(establishmentDto, establishment);
+            Establishment response = this.establishmentService.save(establishment);
+            return  ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception error) {
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
+        }
     }
 
 }
