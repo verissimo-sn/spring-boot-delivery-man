@@ -24,7 +24,7 @@ public class EstablishmentController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createEstablishment(@RequestBody @Valid EstablishmentDto establishmentDto) throws Exception {
+    public ResponseEntity<Object> createEstablishment(@RequestBody @Valid EstablishmentDto establishmentDto) {
         try {
             var establishment = new Establishment();
             BeanUtils.copyProperties(establishmentDto, establishment);
