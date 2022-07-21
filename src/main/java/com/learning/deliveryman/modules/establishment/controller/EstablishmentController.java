@@ -1,6 +1,7 @@
 package com.learning.deliveryman.modules.establishment.controller;
 
-import com.learning.deliveryman.modules.establishment.dto.EstablishmentDto;
+import com.learning.deliveryman.modules.establishment.dtos.CreateEstablishmentDto;
+import com.learning.deliveryman.modules.establishment.dtos.ResponseEstablishmentDto;
 import com.learning.deliveryman.modules.establishment.entity.Establishment;
 import com.learning.deliveryman.modules.establishment.service.EstablishmentService;
 import org.springframework.beans.BeanUtils;
@@ -24,11 +25,12 @@ public class EstablishmentController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createEstablishment(@RequestBody @Valid EstablishmentDto establishmentDto) {
+    public ResponseEntity<Object> createEstablishment(@RequestBody @Valid CreateEstablishmentDto createEstablishmentDto) {
         try {
             var establishment = new Establishment();
-            BeanUtils.copyProperties(establishmentDto, establishment);
-            Establishment response = this.establishmentService.save(establishment);
+            BeanUtils.copyProperties(createEstablishmentDto, establishment);
+            var response = new ResponseEstablishmentDto();
+            BeanUtils.copyProperties(this.establishmentService.save(establishment), response);
             return  ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception error) {
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());

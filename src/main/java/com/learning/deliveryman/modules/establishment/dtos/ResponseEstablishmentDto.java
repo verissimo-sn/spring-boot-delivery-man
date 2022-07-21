@@ -1,30 +1,33 @@
-package com.learning.deliveryman.modules.establishment.dto;
+package com.learning.deliveryman.modules.establishment.dtos;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-public class EstablishmentDto {
-    @NotBlank
+public class ResponseEstablishmentDto {
+    private String id;
     private String name;
-    @NotBlank
     private String email;
-    @NotBlank
-    private String password;
-    @NotNull
     private Integer document;
-    @NotNull
     private Integer mobile;
-    @NotBlank
     private String address;
-    @NotNull
     private Integer zipCode;
 
-    public Integer getZipCode() {
-        return zipCode;
+    public ResponseEstablishmentDto() {
     }
 
-    public void setZipCode(Integer zipCode) {
+    public ResponseEstablishmentDto(String id, String name, String email, Integer document, Integer mobile, String address, Integer zipCode) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.document = document;
+        this.mobile = mobile;
+        this.address = address;
         this.zipCode = zipCode;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -41,14 +44,6 @@ public class EstablishmentDto {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Integer getDocument() {
@@ -73,5 +68,13 @@ public class EstablishmentDto {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Integer getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(Integer zipCode) {
+        this.zipCode = zipCode;
     }
 }
