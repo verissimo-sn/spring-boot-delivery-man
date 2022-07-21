@@ -7,10 +7,7 @@ import com.learning.deliveryman.modules.establishment.service.EstablishmentServi
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -36,5 +33,15 @@ public class EstablishmentController {
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
         }
     }
+    @PutMapping("/{id}/change-status")
+    public ResponseEntity<Object> changeEstablishmentStatus(@PathVariable(value = "id") String id) {
+        try {
+            var response = this.establishmentService.changeStatus((id));
+            return  ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception error) {
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
+        }
+    }
+
 
 }
