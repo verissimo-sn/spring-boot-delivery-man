@@ -17,9 +17,14 @@ public class EstablishmentService {
 
     @Transactional
     public Establishment save(Establishment establishment) throws Exception{
-        Optional<Establishment> foundEstablishment = this.establishmentRepository.findByEmail(establishment.getEmail());
-        if(foundEstablishment.isPresent()) {
+        Optional<Establishment> foundEstablishmentByEmail = this.establishmentRepository.findByEmail(establishment.getEmail());
+        if(foundEstablishmentByEmail.isPresent()) {
             throw new Exception("Email already exists");
+        }
+
+        Optional<Establishment> foundEstablishmentByDocument = this.establishmentRepository.findByDocument(establishment.getDocument());
+        if(foundEstablishmentByDocument.isPresent()) {
+            throw new Exception("Document already exists");
         }
 
         return this.establishmentRepository.save(establishment);

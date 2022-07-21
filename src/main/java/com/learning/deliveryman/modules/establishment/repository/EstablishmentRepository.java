@@ -8,5 +8,8 @@ import java.util.Optional;
 
 @Repository
 public interface EstablishmentRepository extends MongoRepository<Establishment, String> {
+
     Optional<Establishment> findByEmail(String email);
+    Optional<Establishment> findByDocument(int document);
+
 }
