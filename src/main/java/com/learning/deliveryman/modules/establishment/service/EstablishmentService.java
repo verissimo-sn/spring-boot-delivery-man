@@ -16,6 +16,15 @@ public class EstablishmentService {
         this.establishmentRepository = establishmentRepository;
     }
 
+    public Establishment getOneById(String id) throws Exception {
+        Optional<Establishment> foundEstablishment = this.establishmentRepository.findById(id);
+        if(foundEstablishment.isEmpty()) {
+            throw new Exception("Establishment not found");
+        }
+
+        return foundEstablishment.get();
+    }
+
     @Transactional
     public Establishment save(Establishment establishment) throws Exception{
         Optional<Establishment> foundEstablishmentByEmail = this.establishmentRepository.findByEmail(establishment.getEmail());

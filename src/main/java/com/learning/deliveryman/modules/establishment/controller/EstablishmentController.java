@@ -21,6 +21,17 @@ public class EstablishmentController {
         this.establishmentService = establishmentService;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getEstablishment(@PathVariable(value = "id") String id) {
+        try {
+            var response = new ResponseEstablishmentDto();
+            BeanUtils.copyProperties(this.establishmentService.getOneById(id), response);
+            return  ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception error) {
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Object> createEstablishment(@RequestBody @Valid CreateEstablishmentDto createEstablishmentDto) {
         try {
