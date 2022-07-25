@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface DeliverymanRepository extends MongoRepository<Deliveryman, String> {
     Optional<Deliveryman> findByEmail(String email);
-    Optional<Deliveryman> findByDocument(String document);
+    Optional<Deliveryman> findByDocument(Integer document);
 
 }

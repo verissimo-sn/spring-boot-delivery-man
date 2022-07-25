@@ -20,7 +20,7 @@ public class DeliverymanService {
             throw new Exception("Email already exists");
         }
 
-        Optional<Deliveryman> foundDeliverymanByDocument = this.deliverymanRepository.findByEmail(deliveryman.getEmail());
+        Optional<Deliveryman> foundDeliverymanByDocument = this.deliverymanRepository.findByDocument(deliveryman.getDocument());
         if(foundDeliverymanByDocument.isPresent()) {
             throw new Exception("Document already exists");
         }
