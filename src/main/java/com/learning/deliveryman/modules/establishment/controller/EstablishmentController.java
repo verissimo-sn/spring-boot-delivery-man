@@ -47,7 +47,8 @@ public class EstablishmentController {
     @PutMapping("/{id}/change-status")
     public ResponseEntity<Object> changeEstablishmentStatus(@PathVariable(value = "id") String id) {
         try {
-            var response = this.establishmentService.changeStatus((id));
+            var response = new ResponseEstablishmentDto();
+            BeanUtils.copyProperties(this.establishmentService.changeStatus((id)), response);
             return  ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception error) {
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
