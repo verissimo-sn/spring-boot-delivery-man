@@ -2,6 +2,7 @@ package com.learning.deliveryman.modules.deliveryman.service;
 
 import com.learning.deliveryman.modules.deliveryman.entity.Deliveryman;
 import com.learning.deliveryman.modules.deliveryman.repository.DeliverymanRepository;
+import com.learning.deliveryman.modules.establishment.entity.Establishment;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -27,4 +28,18 @@ public class DeliverymanService {
 
         return this.deliverymanRepository.save(deliveryman);
     };
+
+    public String changeStatus(String id) throws Exception {
+        Optional<Deliveryman> foundDeliveryman = this.deliverymanRepository.findById(id);
+        if(foundDeliveryman.isEmpty()) {
+            throw new Exception("Deliveryman not found");
+        }
+
+        var deliveryman = foundDeliveryman.get();
+        deliveryman.setActive(!deliveryman.getActive());
+        this.deliverymanRepository.save(deliveryman);
+        String status = deliveryman.getActive() ? "active" : "inactive";
+
+        return "The deliveryman: " + deliveryman.getName() + " is " + status;
+    }
 }
