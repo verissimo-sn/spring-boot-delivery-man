@@ -2,7 +2,6 @@ package com.learning.deliveryman.modules.deliveryman.service;
 
 import com.learning.deliveryman.modules.deliveryman.entity.Deliveryman;
 import com.learning.deliveryman.modules.deliveryman.repository.DeliverymanRepository;
-import com.learning.deliveryman.modules.establishment.entity.Establishment;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,6 +12,15 @@ public class DeliverymanService {
 
     DeliverymanService(DeliverymanRepository deliverymanRepository) {
         this.deliverymanRepository = deliverymanRepository;
+    }
+
+    public Deliveryman findOneById(String id) throws Exception {
+        var foundDeliveryman = this.deliverymanRepository.findById(id);
+        if(foundDeliveryman.isEmpty()) {
+            throw new Exception("Deliveryman not found");
+        }
+
+        return foundDeliveryman.get();
     }
 
     public Deliveryman save(Deliveryman deliveryman) throws Exception {

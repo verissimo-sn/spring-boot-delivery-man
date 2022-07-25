@@ -18,6 +18,17 @@ public class DeliverymanController {
         this.deliverymanService = deliverymanService;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> findDeliverymanById(@PathVariable(value = "id") String id) {
+        try {
+            var response = new ResponseDeliverymanDto();
+            BeanUtils.copyProperties(this.deliverymanService.findOneById(id), response);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception error) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Object> createDeliveryman(@RequestBody CreateDeliverymanDto deliverymanDto) {
         try {
@@ -37,7 +48,7 @@ public class DeliverymanController {
             var response = this.deliverymanService.changeStatus((id));
             return  ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception error) {
-            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());
         }
     }
 }
