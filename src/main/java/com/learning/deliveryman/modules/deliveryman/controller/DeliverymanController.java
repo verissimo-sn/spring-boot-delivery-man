@@ -1,6 +1,7 @@
 package com.learning.deliveryman.modules.deliveryman.controller;
 
 import com.learning.deliveryman.modules.deliveryman.dtos.CreateDeliverymanDto;
+import com.learning.deliveryman.modules.deliveryman.dtos.ResponseDeliverymanDto;
 import com.learning.deliveryman.modules.deliveryman.entity.Deliveryman;
 import com.learning.deliveryman.modules.deliveryman.service.DeliverymanService;
 import org.springframework.beans.BeanUtils;
@@ -25,7 +26,8 @@ public class DeliverymanController {
         try {
             Deliveryman deliveryman = new Deliveryman();
             BeanUtils.copyProperties(deliverymanDto, deliveryman);
-            var response = this.deliverymanService.save(deliveryman);
+            ResponseDeliverymanDto response = new ResponseDeliverymanDto();
+            BeanUtils.copyProperties(this.deliverymanService.save(deliveryman), response);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception error) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
